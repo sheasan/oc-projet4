@@ -1,4 +1,5 @@
 import datetime
+import string
 
 class Player:
     """test docstring"""
@@ -26,12 +27,16 @@ class Player:
     def _set_nom(self, nom):
         if len(nom) > 50:
             print("Le nombre de charactères est limité à 50")
+        elif any(char in (set(string.punctuation)) for char in nom):
+            print("Votre nom ne doit pas contenir de charactères spéciaux")
         else:
             self.__nom = nom
     
     def _set_prenom(self, prenom):
         if len(prenom) > 50:
             print("Le nombre de charactères est limité à 50")
+        elif any(char in (set(string.punctuation)) for char in prenom):
+            print("Votre prénom ne doit pas contenir de charactères spéciaux")
         else:
             self.__prenom = prenom
     
@@ -61,7 +66,7 @@ class Player:
 
 
 player1 = Player("snow", "jon", "12/11/2000", 5)
-player1.nom = "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+player1.nom = "Kevin!"
 player1.date_de_naissance = "test"
 player1.classement = 51
 print(player1)
