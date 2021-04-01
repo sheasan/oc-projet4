@@ -1,4 +1,5 @@
 import datetime
+from datetime import date
 import string
 
 class Player:
@@ -43,10 +44,24 @@ class Player:
     def _set_date_de_naissance(self, date_de_naissance):
         ## Vérification format de date
         try:
-            datetime.datetime.strptime(date_de_naissance, "%d/%m/%Y")
+            dob = datetime.datetime.strptime(date_de_naissance, "%d/%m/%Y")
         except ValueError:
             print("Format de date incorrect : veuillez renseigner sous cette forme jj/mm/aaaa")
-    
+        
+        ## Calcul de l'âge
+        def calculate_age(born):
+            today = date.today()
+            return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        
+        age = calculate_age(dob)
+
+        ## Vérification de l'âge minimum requis
+        if age < 12 :
+            print("Vous devez avoir au moins 12 ans")
+        else:
+            self.__date_de_naissance = date_de_naissance
+        
+        
     
     def _set_classement(self, classement):
         if type(classement) != int:
@@ -67,6 +82,6 @@ class Player:
 
 player1 = Player("snow", "jon", "12/11/2000", 5)
 player1.nom = "K"
-player1.date_de_naissance = "test"
+player1.date_de_naissance = "12/03/2020"
 player1.classement = 51
 print(player1)
