@@ -6,10 +6,10 @@ class Player:
     """test docstring"""
     ## Initialisation avec méthode spéciale __init__
     def __init__(self, nom, prenom, date_de_naissance, classement):
-        self.__nom = nom
-        self.__prenom = prenom
-        self.__date_de_naissance = date_de_naissance
-        self.__classement = classement
+        self.nom = nom
+        self.prenom = prenom
+        self.date_de_naissance = date_de_naissance
+        self.classement = classement
     
     ## Méthode get pour accèder aux attributs privés
     def _get_nom(self):
@@ -27,7 +27,7 @@ class Player:
     ## Méthode setter pour changer la valeur des attributs privés
     def _set_nom(self, nom):
         if len(nom) < 2 or len(nom) > 50:
-            print("Le nombre de charactères doit être compris entre 2 et 50")
+            raise AttributeError("Le nombre de charactères doit être compris entre 2 et 50")
         elif any(char in (set(string.punctuation)) for char in nom):
             print("Votre nom ne doit pas contenir de charactères spéciaux")
         else:
@@ -44,16 +44,13 @@ class Player:
     def _set_date_de_naissance(self, date_de_naissance):
         ## Vérification format de date
         try:
-            dob = datetime.datetime.strptime(date_de_naissance, "%d/%m/%Y")
+            dob = datetime.date.fromisoformat(date_de_naissance)
         except ValueError:
             print("Format de date incorrect : veuillez renseigner sous cette forme jj/mm/aaaa")
         
-        ## Calcul de l'âge
-        def calculate_age(born):
-            today = date.today()
-            return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+        today = date.today()
         
-        age = calculate_age(dob)
+        age = today.year - dob.year
 
         ## Vérification de l'âge minimum requis
         if age < 12 :
@@ -61,10 +58,8 @@ class Player:
         else:
             self.__date_de_naissance = date_de_naissance
         
-        
-    
     def _set_classement(self, classement):
-        if type(classement) != int:
+        if not isinstance(classement, int):
             print("Veuillez entrer une donnée au format numéraire")
         elif classement < 0 or classement > 50:
             print("Veuillez entrer un nombre compris entre 0 et 50")
@@ -72,7 +67,7 @@ class Player:
             self.__classement = classement
     
     def __repr__(self):
-       return "Nom: "+self.__nom+" "+","+"Prénom: "+self.__prenom+", "+"Date de naissance: "+str(self.__date_de_naissance)+" ,"+"Classement: "+str(self.__classement)
+       return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)
 
     nom = property(_get_nom, _set_nom)
     prenom = property(_get_prenom, _set_prenom)
@@ -80,8 +75,8 @@ class Player:
     classement = property(_get_classement, _set_classement)
 
 
-player1 = Player("snow", "jon", "12/11/2000", 5)
+player1 = Player("s", "jon", "2020-06-18", 5)
 player1.nom = "K"
-player1.date_de_naissance = "12/03/2020"
+player1.date_de_naissance = "2020-06-13"
 player1.classement = 51
 print(player1)
