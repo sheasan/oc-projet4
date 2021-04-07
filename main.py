@@ -12,36 +12,43 @@ class Player:
         self.classement = classement
     
     ## Méthode get pour accèder aux attributs privés
-    def _get_nom(self):
-        return self.__nom
+    @property
+    def nom(self):
+        return self.nom
 
-    def _get_prenom(self):
-        return self.__prenom
-
-    def _get_date_de_naissance(self):
-        return self.__date_de_naissance
+    @property
+    def prenom(self):
+        return self.prenom
     
-    def _get_classement(self):
-        return self.__classement
+    @property
+    def date_de_naissance(self):
+        return self.date_de_naissance
+    
+    @property
+    def classement(self):
+        return self.classement
     
     ## Méthode setter pour changer la valeur des attributs privés
-    def _set_nom(self, nom):
+    @nom.setter
+    def nom(self, nom):
         if len(nom) < 2 or len(nom) > 50:
             raise AttributeError("Le nombre de charactères doit être compris entre 2 et 50")
         elif any(char in (set(string.punctuation)) for char in nom):
             print("Votre nom ne doit pas contenir de charactères spéciaux")
         else:
-            self.__nom = nom
+            self.nom = nom
     
-    def _set_prenom(self, prenom):
+    @prenom.setter
+    def prenom(self, prenom):
         if len(nom) < 2 or len(nom) > 50:
             print("Le nombre de charactères doit être compris entre 2 et 50")
         elif any(char in (set(string.punctuation)) for char in prenom):
             print("Votre prénom ne doit pas contenir de charactères spéciaux")
         else:
-            self.__prenom = prenom
+            self.prenom = prenom
     
-    def _set_date_de_naissance(self, date_de_naissance):
+    @date_de_naissance.setter
+    def date_de_naissance(self, date_de_naissance):
         ## Vérification format de date
         try:
             dob = datetime.date.fromisoformat(date_de_naissance)
@@ -56,23 +63,20 @@ class Player:
         if age < 12 :
             print("Vous devez avoir au moins 12 ans")
         else:
-            self.__date_de_naissance = date_de_naissance
-        
-    def _set_classement(self, classement):
+            self.date_de_naissance = date_de_naissance
+    
+    @classement.setter
+    def classement(self, classement):
         if not isinstance(classement, int):
             print("Veuillez entrer une donnée au format numéraire")
         elif classement < 0 or classement > 50:
             print("Veuillez entrer un nombre compris entre 0 et 50")
         else:
-            self.__classement = classement
+            self.classement = classement
     
     def __repr__(self):
        return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)
 
-    nom = property(_get_nom, _set_nom)
-    prenom = property(_get_prenom, _set_prenom)
-    date_de_naissance = property(_get_date_de_naissance, _set_date_de_naissance)
-    classement = property(_get_classement, _set_classement)
 
 
 player1 = Player("s", "jon", "2020-06-18", 5)
