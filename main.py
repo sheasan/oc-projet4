@@ -41,7 +41,7 @@ class Player:
     @prenom.setter
     def prenom(self, prenom):
         if len(prenom) < 2 or len(prenom) > 50:
-            print("Le nombre de charactères doit être compris entre 2 et 50")
+            raise AttributeError("Le nombre de charactères doit être compris entre 2 et 50")
         elif any(char in (set(string.punctuation)) for char in prenom):
             print("Votre prénom ne doit pas contenir de charactères spéciaux")
         else:
@@ -61,7 +61,7 @@ class Player:
 
         ## Vérification de l'âge minimum requis
         if age < 12 :
-            print("Vous devez avoir au moins 12 ans")
+            raise AttributeError("Vous devez avoir au moins 12 ans")
         else:
             self.__date_de_naissance = date_de_naissance
     
@@ -73,13 +73,13 @@ class Player:
             print("Veuillez entrer un nombre compris entre 0 et 50")
         else:
             self.__classement = classement
-    
+            
     def __repr__(self):
        return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)
 
 
 
-player1 = Player("ut", "jon", "2020-06-18", 5)
+player1 = Player("ut", "jon", "2018-06-18", 5)
 ##player1.nom = "Kaa"
 ##player1.date_de_naissance = "2020-06-13"
 ##player1.classement = 51
