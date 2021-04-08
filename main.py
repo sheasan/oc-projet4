@@ -1,6 +1,7 @@
 import datetime
 from datetime import date
 import string
+import re
 
 class Player:
     """test docstring"""
@@ -33,8 +34,8 @@ class Player:
     def nom(self, nom):
         if len(nom) < 2 or len(nom) > 50:
             raise AttributeError("Le nombre de charactères doit être compris entre 2 et 50")
-        elif any(char in (set(string.punctuation)) for char in nom):
-            print("Votre nom ne doit pas contenir de charactères spéciaux")
+        elif re.compile('[@_!#$%^&*()<>?/\|}{~:]').search(nom):
+            raise AttributeError("Votre nom ne doit pas contenir de charactères spéciaux")
         else:
             self.__nom = nom
     
@@ -42,8 +43,8 @@ class Player:
     def prenom(self, prenom):
         if len(prenom) < 2 or len(prenom) > 50:
             raise AttributeError("Le nombre de charactères doit être compris entre 2 et 50")
-        elif any(char in (set(string.punctuation)) for char in prenom):
-            print("Votre prénom ne doit pas contenir de charactères spéciaux")
+        elif re.compile('[@_!#$%^&*()<>?/\|}{~:]').search(prenom):
+            raise AttributeError("Votre prénom ne doit pas contenir de charactères spéciaux")
         else:
             self.__prenom = prenom
     
@@ -73,13 +74,13 @@ class Player:
             print("Veuillez entrer un nombre compris entre 0 et 50")
         else:
             self.__classement = classement
-            
+
     def __repr__(self):
        return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)
 
 
 
-player1 = Player("ut", "jon", "2018-06-18", 5)
+player1 = Player("ut", "jon*", "2000-06-18", 5)
 ##player1.nom = "Kaa"
 ##player1.date_de_naissance = "2020-06-13"
 ##player1.classement = 51
