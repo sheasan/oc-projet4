@@ -14,19 +14,19 @@ class Player:
     ## Méthode get pour accèder aux attributs privés
     @property
     def nom(self):
-        return self.nom
+        return self.__nom
 
     @property
     def prenom(self):
-        return self.prenom
+        return self.__prenom
     
     @property
     def date_de_naissance(self):
-        return self.date_de_naissance
+        return self.__date_de_naissance
     
     @property
     def classement(self):
-        return self.classement
+        return self.__classement
     
     ## Méthode setter pour changer la valeur des attributs privés
     @nom.setter
@@ -36,16 +36,16 @@ class Player:
         elif any(char in (set(string.punctuation)) for char in nom):
             print("Votre nom ne doit pas contenir de charactères spéciaux")
         else:
-            self.nom = nom
+            self.__nom = nom
     
     @prenom.setter
     def prenom(self, prenom):
-        if len(nom) < 2 or len(nom) > 50:
+        if len(prenom) < 2 or len(prenom) > 50:
             print("Le nombre de charactères doit être compris entre 2 et 50")
         elif any(char in (set(string.punctuation)) for char in prenom):
             print("Votre prénom ne doit pas contenir de charactères spéciaux")
         else:
-            self.prenom = prenom
+            self.__prenom = prenom
     
     @date_de_naissance.setter
     def date_de_naissance(self, date_de_naissance):
@@ -63,7 +63,7 @@ class Player:
         if age < 12 :
             print("Vous devez avoir au moins 12 ans")
         else:
-            self.date_de_naissance = date_de_naissance
+            self.__date_de_naissance = date_de_naissance
     
     @classement.setter
     def classement(self, classement):
@@ -72,15 +72,15 @@ class Player:
         elif classement < 0 or classement > 50:
             print("Veuillez entrer un nombre compris entre 0 et 50")
         else:
-            self.classement = classement
+            self.__classement = classement
     
     def __repr__(self):
        return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)
 
 
 
-player1 = Player("s", "jon", "2020-06-18", 5)
-player1.nom = "K"
-player1.date_de_naissance = "2020-06-13"
-player1.classement = 51
+player1 = Player("ut", "jon", "2020-06-18", 5)
+##player1.nom = "Kaa"
+##player1.date_de_naissance = "2020-06-13"
+##player1.classement = 51
 print(player1)
