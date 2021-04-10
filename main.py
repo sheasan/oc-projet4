@@ -2,15 +2,22 @@ import datetime
 from datetime import date
 import string
 import re
+from enum import Enum
+from typing import Union
 
 class Player:
     """test docstring"""
+    class Gender(Enum):
+        Homme = "Homme"
+        Femme = "Femme"
+
     ## Initialisation avec méthode spéciale __init__
-    def __init__(self, nom, prenom, date_de_naissance, classement):
+    def __init__(self, nom, prenom, date_de_naissance, classement, gender):
         self.nom = nom
         self.prenom = prenom
         self.date_de_naissance = date_de_naissance
         self.classement = classement
+        self.gender = gender
     
     ## Méthode get pour accèder aux attributs privés
     @property
@@ -28,6 +35,10 @@ class Player:
     @property
     def classement(self):
         return self.__classement
+    
+    @property
+    def gender(self):
+        return self.__gender
     
     ## Méthode setter pour changer la valeur des attributs privés
     @nom.setter
@@ -54,7 +65,7 @@ class Player:
         try:
             dob = datetime.date.fromisoformat(date_de_naissance)
         except ValueError:
-            print("Format de date incorrect : veuillez renseigner sous cette forme jj/mm/aaaa")
+            raise AttributeError("Format de date incorrect : veuillez renseigner sous cette forme jj/mm/aaaa")
         
         today = date.today()
         
@@ -67,21 +78,36 @@ class Player:
             self.__date_de_naissance = date_de_naissance
     
     @classement.setter
-    def classement(self, classement):
-        if not isinstance(classement, int):
-            print("Veuillez entrer une donnée au format numéraire")
-        elif classement < 0 or classement > 50:
-            print("Veuillez entrer un nombre compris entre 0 et 50")
+    def classement(self, value : int):
+        if not isinstance(value, int):
+            raise AttributeError("Veuillez entrer une donnée au format numéraire")
+        elif value < 0 or value > 50:
+            raise AttributeError("Veuillez entrer un nombre compris entre 0 et 50")
         else:
-            self.__classement = classement
+            self.__classement = value
+
+    @gender.setter
+    def gender(self, value: Union[str, Gender]):
+        if isinstance(value, str):
+            try:
+                value = Player.Gender(value.title())
+            except ValueError:
+                raise AttributeError("Vous devez renseigner soit Homme, soit la valeur Femme")
+        if isinstance(value, Player.Gender):
+            self.__gender = value
+        else:
+            raise AttributeError("...")
 
     def __repr__(self):
-       return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)
+       return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)+" ,"+"Sexe: "+str(self.gender)
 
 
-
-player1 = Player("ut", "jon*", "2000-06-18", 5)
+try:
+    player1 = Player("ut", "jon", "2000-06-18", 5, "omme")
 ##player1.nom = "Kaa"
 ##player1.date_de_naissance = "2020-06-13"
 ##player1.classement = 51
-print(player1)
+    print(player1)
+except AttributeError as nameError:
+    print(nameError)
+
