@@ -43,21 +43,17 @@ class Player:
     ## Méthode setter pour changer la valeur des attributs privés
     @nom.setter
     def nom(self, nom):
-        if len(nom) < 2 or len(nom) > 50:
-            raise AttributeError("Le nombre de charactères doit être compris entre 2 et 50")
-        elif re.compile('[@_!#$%^&*()<>?/\|}{~:]').search(nom):
-            raise AttributeError("Votre nom ne doit pas contenir de charactères spéciaux")
-        else:
+        if re.match("^[A-Za-z\-éèêëîïûüçâäôö]{2,20}$", nom):
             self.__nom = nom
+        else:
+            raise AttributeError("Votre nom ne doit pas contenir de charactères spéciaux")
     
     @prenom.setter
     def prenom(self, prenom):
-        if len(prenom) < 2 or len(prenom) > 50:
-            raise AttributeError("Le nombre de charactères doit être compris entre 2 et 50")
-        elif re.compile('[@_!#$%^&*()<>?/\|}{~:]').search(prenom):
-            raise AttributeError("Votre prénom ne doit pas contenir de charactères spéciaux")
-        else:
+        if re.match("^[A-Za-z\-éèêëîïûüçâäôö]{2,20}$", prenom):
             self.__prenom = prenom
+        else:
+            raise AttributeError("Votre prenom ne doit pas contenir de charactères spéciaux")
     
     @date_de_naissance.setter
     def date_de_naissance(self, date_de_naissance):
@@ -103,7 +99,7 @@ class Player:
 
 
 try:
-    player1 = Player("ut", "jon", "2000-06-18", 5, "omme")
+    player1 = Player("snow", "jon", "2000-06-18", 5, "Homme")
 ##player1.nom = "Kaa"
 ##player1.date_de_naissance = "2020-06-13"
 ##player1.classement = 51
