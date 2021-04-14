@@ -42,7 +42,7 @@ class Player:
     
     ## Méthode setter pour changer la valeur des attributs privés
     @nom.setter
-    def nom(self, nom):
+    def nom(self, nom : str):
         if re.match("^[A-Za-z\-éèêëîïûüçâäôö]{2,20}$", nom):
             self.__nom = nom
         else:
@@ -100,9 +100,6 @@ class Player:
 
 try:
     player1 = Player("snow", "jon", "2000-06-18", 5, "Homme")
-##player1.nom = "Kaa"
-##player1.date_de_naissance = "2020-06-13"
-##player1.classement = 51
     print(player1)
 except AttributeError as nameError:
     print(nameError)
