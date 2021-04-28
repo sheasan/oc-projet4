@@ -4,6 +4,7 @@ import string
 import re
 from enum import Enum
 from typing import Union
+import json
 
 class Player:
     """test docstring"""
@@ -42,26 +43,27 @@ class Player:
     
     ## Méthode setter pour changer la valeur des attributs privés
     @nom.setter
-    def nom(self, nom : str):
-        if re.match("^[A-Za-z\-éèêëîïûüçâäôö]{2,20}$", nom):
-            self.__nom = nom
+    def nom(self, value : str):
+        if re.match("^[A-Za-z\- éèêëîïûüçâäôö]{2,20}$", value):
+            self.__nom = value
         else:
             raise AttributeError("Votre nom ne doit pas contenir de charactères spéciaux")
     
     @prenom.setter
-    def prenom(self, prenom):
-        if re.match("^[A-Za-z\-éèêëîïûüçâäôö]{2,20}$", prenom):
-            self.__prenom = prenom
+    def prenom(self, value : str):
+        if re.match("^[A-Za-z\- éèêëîïûüçâäôö]{2,20}$", value):
+            self.__prenom = value
         else:
             raise AttributeError("Votre prenom ne doit pas contenir de charactères spéciaux")
     
     @date_de_naissance.setter
-    def date_de_naissance(self, date_de_naissance):
+    ## Utiliser Union (soit l'un ou l'autre)
+    def date_de_naissance(self, value : str):
         ## Vérification format de date
         try:
-            dob = datetime.date.fromisoformat(date_de_naissance)
+            dob = datetime.date.fromisoformat(value)
         except ValueError:
-            raise AttributeError("Format de date incorrect : veuillez renseigner sous cette forme jj/mm/aaaa")
+            raise ValueError("Format de date incorrect : veuillez renseigner sous cette forme AAAA-MM-JJ")
         
         today = date.today()
         
@@ -71,7 +73,7 @@ class Player:
         if age < 12 :
             raise AttributeError("Vous devez avoir au moins 12 ans")
         else:
-            self.__date_de_naissance = date_de_naissance
+            self.__date_de_naissance = str(dob)
     
     @classement.setter
     def classement(self, value : int):
@@ -90,7 +92,7 @@ class Player:
             except ValueError:
                 raise AttributeError("Vous devez renseigner soit Homme, soit la valeur Femme")
         if isinstance(value, Player.Gender):
-            self.__gender = value
+            self.__gender = str(value)
         else:
             raise AttributeError("...")
 
@@ -101,6 +103,9 @@ class Player:
 try:
     player1 = Player("snow", "jon", "2000-06-18", 5, "Homme")
     print(player1)
+    ## Ajout code serialization
+    serialization = json.dumps(player1.__dict__)
+    print((serialization))
 except AttributeError as nameError:
     print(nameError)
 
