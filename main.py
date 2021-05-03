@@ -60,14 +60,15 @@ class Player:
     ## Utiliser Union (soit l'un ou l'autre)
     def date_de_naissance(self, value : str):
         ## Vérification format de date
-        try:
-            dob = datetime.date.fromisoformat(value)
-        except ValueError:
-            raise ValueError("Format de date incorrect : veuillez renseigner sous cette forme AAAA-MM-JJ")
+        if isinstance(value, str) :
+            try:
+                dob = datetime.date.fromisoformat(value)
+            except ValueError:
+                raise ValueError("Format de date incorrect : veuillez renseigner sous cette forme AAAA-MM-JJ")
         
-        today = date.today()
+            today = date.today()
         
-        age = today.year - dob.year
+            age = today.year - dob.year
 
         ## Vérification de l'âge minimum requis
         if age < 12 :
@@ -105,6 +106,8 @@ try:
     print(player1)
     ## Ajout code serialization
     serialization = json.dumps(player1.__dict__)
+    with open( "datafile.json" , "w" ) as write:
+        json.dump( serialization , write )
     print((serialization))
 except AttributeError as nameError:
     print(nameError)
