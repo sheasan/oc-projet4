@@ -20,8 +20,9 @@ class Player:
         self.classement = classement
         self.gender = gender
 
+    ## Factorisation code vérification regex
     @staticmethod
-    def _check_regex(value : str, nom : str = "prenom"):
+    def _check_regex(value : str, nom : str = "nom"):
         if re.match("^[A-Za-z\- éèêëîïûüçâäôö]{2,20}$", value):
             return value
         else:
