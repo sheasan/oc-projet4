@@ -19,7 +19,14 @@ class Player:
         self.date_de_naissance = date_de_naissance
         self.classement = classement
         self.gender = gender
-    
+
+    @staticmethod
+    def _check_regex(value : str, nom : str = "prenom"):
+        if re.match("^[A-Za-z\- éèêëîïûüçâäôö]{2,20}$", value):
+            return value
+        else:
+            raise AttributeError(f"Votre {nom} ne doit pas contenir de caractères spéciaux")
+
     ## Méthode get pour accèder aux attributs privés
     @property
     def nom(self):
@@ -44,17 +51,11 @@ class Player:
     ## Méthode setter pour changer la valeur des attributs privés
     @nom.setter
     def nom(self, value : str):
-        if re.match("^[A-Za-z\- éèêëîïûüçâäôö]{2,20}$", value):
-            self.__nom = value
-        else:
-            raise AttributeError("Votre nom ne doit pas contenir de charactères spéciaux")
+        self.__nom = Player._check_regex(value)
     
     @prenom.setter
     def prenom(self, value : str):
-        if re.match("^[A-Za-z\- éèêëîïûüçâäôö]{2,20}$", value):
-            self.__prenom = value
-        else:
-            raise AttributeError("Votre prenom ne doit pas contenir de charactères spéciaux")
+        self.__prenom = Player._check_regex(value)
     
     @date_de_naissance.setter
     ## Utiliser Union (soit l'un ou l'autre)
@@ -102,7 +103,7 @@ class Player:
 
 
 try:
-    player1 = Player("snow", "jon", "2000-06-18", 5, "Homme")
+    player1 = Player("snow**", "jon**", "2000-06-18", 5, "Homme")
     print(player1)
     ## Ajout code serialization
     serialization = json.dumps(player1.__dict__)
