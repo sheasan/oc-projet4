@@ -11,14 +11,21 @@ class Player:
     class Gender(Enum):
         Homme = "Homme"
         Femme = "Femme"
+    
+    counter = 0
 
     ## Initialisation avec méthode spéciale __init__
-    def __init__(self, nom, prenom, date_de_naissance, classement, gender):
+    def __init__(self, nom, prenom, date_de_naissance, classement, gender, id = None):
         self.nom = nom
         self.prenom = prenom
         self.date_de_naissance = date_de_naissance
         self.classement = classement
         self.gender = gender
+        if id is None:
+            self.id = Player.counter
+            Player.counter += 1
+        else:
+            self.id = id
 
     ## Factorisation code vérification regex
     @staticmethod
@@ -48,6 +55,10 @@ class Player:
     @property
     def gender(self):
         return self.__gender
+
+    @property
+    def id(self):
+        return self.__id
     
     ## Méthode setter pour changer la valeur des attributs privés
     @nom.setter
@@ -98,16 +109,29 @@ class Player:
             self.__gender = str(value)
         else:
             raise AttributeError("...")
+    
+    @id.setter
+    def id(self, value):
+        if isinstance(value, int):
+            print(Player.counter)
+            if value == (Player.counter):
+                print("Attention id doublons") 
+            else:
+                self.__id = value
+        else:
+            print("L'id doit être au format numérique")
 
     def __repr__(self):
        return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)+" ,"+"Sexe: "+str(self.gender)
 
 
 try:
-    player1 = Player("snow**", "jon**", "2000-06-18", 5, "Homme")
+    player1 = Player("snow", "jon", "2000-06-18", 5, "Homme")
+    player2 = Player("boris", "klein", "2000-06-18", 5, "Homme")
+    ##player2 = Player("boris", "klein", "2000-06-18", 5, "Homme", 1)
     print(player1)
     ## Ajout code serialization
-    serialization = json.dumps(player1.__dict__)
+    serialization = json.dumps(player2.__dict__)
     with open( "datafile.json" , "w" ) as write:
         json.dump( serialization , write )
     print((serialization))
