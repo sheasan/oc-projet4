@@ -5,6 +5,7 @@ import re
 from enum import Enum
 from typing import Union
 import json
+from uuid import uuid4
 
 class Player:
     """test docstring"""
@@ -12,7 +13,7 @@ class Player:
         Homme = "Homme"
         Femme = "Femme"
     
-    counter = 0
+    ## counter = 0 ===> Appeler next player_id (plus explicite)
 
     ## Initialisation avec méthode spéciale __init__
     def __init__(self, nom, prenom, date_de_naissance, classement, gender, id = None):
@@ -24,6 +25,11 @@ class Player:
         if id is None:
             self.id = Player.counter
             Player.counter += 1
+        else:
+            self.id = id
+        if id is None:
+            unique_id = uuid4()
+            self.id = unique_id
         else:
             self.id = id
 
@@ -113,11 +119,12 @@ class Player:
     @id.setter
     def id(self, value):
         if isinstance(value, int):
-            print(Player.counter)
+            """print(Player.counter)
             if value == (Player.counter):
                 print("Attention id doublons") 
             else:
-                self.__id = value
+                self.__id = value"""
+            self.__id = value
         else:
             print("L'id doit être au format numérique")
 
@@ -125,16 +132,17 @@ class Player:
        return "Nom: "+self.nom+" "+","+"Prénom: "+self.prenom+", "+"Date de naissance: "+str(self.date_de_naissance)+" ,"+"Classement: "+str(self.classement)+" ,"+"Sexe: "+str(self.gender)
 
 
-try:
-    player1 = Player("snow", "jon", "2000-06-18", 5, "Homme")
-    player2 = Player("boris", "klein", "2000-06-18", 5, "Homme")
-    ##player2 = Player("boris", "klein", "2000-06-18", 5, "Homme", 1)
-    print(player1)
-    ## Ajout code serialization
-    serialization = json.dumps(player2.__dict__)
-    with open( "datafile.json" , "w" ) as write:
-        json.dump( serialization , write )
-    print((serialization))
-except AttributeError as nameError:
-    print(nameError)
+if __name__ == "__main__":
+    try:
+        player1 = Player("snow", "jon", "2000-06-18", 5, "Homme", 1)
+        player2 = Player("boris", "klein", "2000-06-18", 5, "Homme", 1)
+        ##player2 = Player("boris", "klein", "2000-06-18", 5, "Homme", 1)
+        print(player1)
+        ## Ajout code serialization
+        serialization = json.dumps(player1.__dict__)
+        """with open( "datafile.json" , "w" ) as write:
+            json.dump( serialization , write )"""
+        print((serialization))
+    except AttributeError as nameError:
+        print(nameError)
 
