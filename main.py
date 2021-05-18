@@ -112,7 +112,7 @@ class Player:
             except ValueError:
                 raise AttributeError("Vous devez renseigner soit Homme, soit la valeur Femme")
         if isinstance(value, Player.Gender):
-            self.__gender = str(value)
+            self.__gender = value
         else:
             raise AttributeError("...")
     
