@@ -1,5 +1,7 @@
 import re
 from datetime import date
+import playermanager
+import main
 
 class Tournament:
 
@@ -47,3 +49,9 @@ class Tournament:
             return value
         else:
             raise AttributeError(f"Votre {nom} ne doit pas contenir de caractères spéciaux")
+    
+
+    ## Méthode setter pour changer la valeur des attributs privés
+    @nom.setter
+    def nom(self, value : str):
+        self.__nom = main.Player._check_regex(value)
