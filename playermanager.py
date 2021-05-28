@@ -31,10 +31,10 @@ class PlayerManager:
 
 if __name__ == "__main__":
     player_manager = PlayerManager()
-    player_manager.load_from_json()
+    """player_manager.load_from_json()
     print(player_manager.all())
     print(player_manager.find_by_id(2))
-    print(player_manager.find(lambda x: x.gender == main.Player.Gender.Homme))
+    print(player_manager.find(lambda x: x.gender == main.Player.Gender.Homme))"""
 
 ## chargement du fichier json
 """with open('datafile.json') as json_file:
