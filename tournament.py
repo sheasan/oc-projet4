@@ -76,7 +76,9 @@ class Tournament:
         
             today = date.today()
 
-    @players.setter
-    def players(self, value: list[Union[main.Player, int]]):
-        pass
-tournoi1 = Tournament("arizona", "USA", "2010-06-16", "data4", "data5", "data6", "data7", "data8")
+    # @players.setter
+    # def players(self, value: list[Union[main.Player, int]]):
+    #     pass
+    
+if __name__ == "__main__":
+    tournoi1 = Tournament("arizona", "USA", "2010-06-16", "data4", "data5", "data6", "data7", "data8")

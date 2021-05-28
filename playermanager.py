@@ -31,25 +31,6 @@ class PlayerManager:
 
 if __name__ == "__main__":
     player_manager = PlayerManager()
-    """player_manager.load_from_json()
-    print(player_manager.all())
-    print(player_manager.find_by_id(2))
-    print(player_manager.find(lambda x: x.gender == main.Player.Gender.Homme))"""
-
-## chargement du fichier json
-"""with open('datafile.json') as json_file:
-    data = json.load(json_file)
-
-## dictionnaire vide
-registry = {}
-
-## parcourir la liste de donnée et sérialisation en objet de class avec ajout dans le dictionnaire
-for dictionnary in data:
-    player_object = main.Player(**dictionnary)
-    registry[player_object.id] = player_object
-print(registry)"""
-
-## Le resultat n'est pas bon car le gender du setter est converti en str (ligne 115) à corriger
 
 
 
